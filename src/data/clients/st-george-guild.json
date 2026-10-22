@@ -1,0 +1,201 @@
+{
+  "businessName": "St. George Barber Guild",
+  "slug": "st-george-guild",
+  "theme": "classic",
+  "tagline": "Traditional Cut-Throat Shaves • Master Barbering • Heritage Terrace",
+  "location": "182 St Georges Terrace, Perth WA 6000",
+  "city": "Perth Heritage Quarter",
+  "addressLine": "182 St Georges Terrace (Ground Floor, Heritage Arcade)",
+  "mapUrl": "https://maps.google.com/?q=182+St+Georges+Terrace,+Perth+WA+6000",
+  "phone": "+61 8 9321 4410",
+  "email": "guild@stgeorgebarber.com.au",
+  "bookingUrl": "https://www.fresha.com",
+  "businessDescription": "Established to preserve the noble traditions of classic gentlemens grooming in Western Australia. We offer hot lather straight-razor shaves, single-malt whiskey hospitality, handcrafted timber furnishings, and time-honoured scissor techniques passed down through generations of master barbers.",
+  "branding": {
+    "logo": null,
+    "heroImage": "/src/assets/hero2.png",
+    "favicon": "/favicon.svg",
+    "tag": "FOUNDED 2012 • ST GEORGES TCE",
+    "accentColor": "#b88b4a"
+  },
+  "seo": {
+    "title": "St. George Barber Guild | Traditional Cut-Throat Shaves | Perth",
+    "description": "Historic St Georges Terrace gentlemen's barbershop. Master shear haircuts, royal straight-razor hot lather shaves, and heritage grooming rituals.",
+    "keywords": ["St Georges Terrace barber", "traditional straight razor shave Perth", "classic barbershop Perth", "gentlemans grooming Perth", "heritage barber"]
+  },
+  "hours": [
+    { "days": "Monday – Friday", "time": "8:00 AM – 6:00 PM" },
+    { "days": "Saturday", "time": "9:00 AM – 4:00 PM" },
+    { "days": "Sunday", "time": "Closed by Tradition" }
+  ],
+  "services": [
+    {
+      "id": "sgg-01",
+      "number": "I",
+      "name": "The Traditional Gentlemen's Cut",
+      "category": "Cuts",
+      "description": "Scissor and clipper tailoring, razor taper on nape, bay rum tonic, and hot steam towel.",
+      "price": "$45",
+      "duration": "35 mins",
+      "popular": true
+    },
+    {
+      "id": "sgg-02",
+      "number": "II",
+      "name": "Royal Cut-Throat Shave Ritual",
+      "category": "Shaves",
+      "description": "Triple hot towel infusion, badger-hair brush badger lather, Japanese feather blade shave, and cold stone alum finish.",
+      "price": "$50",
+      "duration": "45 mins",
+      "popular": true
+    },
+    {
+      "id": "sgg-03",
+      "number": "III",
+      "name": "Guild Beard Care & Razor Line",
+      "category": "Beard",
+      "description": "Hand-combed trim, scissor sculpting, warm organic sandalwood oil wrap, and neck blade alignment.",
+      "price": "$35",
+      "duration": "30 mins",
+      "popular": false
+    },
+    {
+      "id": "sgg-04",
+      "number": "IV",
+      "name": "The Terrace Full Service",
+      "category": "Combo",
+      "description": "The complete St. George experience: haircut, royal cut-throat shave, and single-malt beverage pairing.",
+      "price": "$85",
+      "duration": "70 mins",
+      "popular": true
+    },
+    {
+      "id": "sgg-05",
+      "number": "V",
+      "name": "Senior Guildsman Cut",
+      "category": "Cuts",
+      "description": "Honouring our distinguished senior patrons (65+) with classic styling and respectful attention.",
+      "price": "$36",
+      "duration": "30 mins",
+      "popular": false
+    }
+  ],
+  "packages": [
+    {
+      "id": "sgg-pkg-01",
+      "number": "I",
+      "name": "The Guild Standard",
+      "price": "$70",
+      "description": "Our traditional grooming pairing for the working professional on St Georges Terrace.",
+      "image": "/gallery/gallery-1.jpg",
+      "accent": "bg-[#2c1a16]",
+      "services": [
+        "Traditional Haircut & Nape Shave",
+        "Beard Outline or Quick Shave",
+        "Bay Rum Scalp Tonic",
+        "Aromatic Steam Towel"
+      ]
+    },
+    {
+      "id": "sgg-pkg-02",
+      "number": "II",
+      "name": "The Heritage Reserve",
+      "price": "$125",
+      "description": "An uninterrupted 90-minute private appointment honoring traditional barbershop fellowship and luxury finish.",
+      "image": "/gallery/gallery-5.jpg",
+      "accent": "bg-[#8f2d38]",
+      "badge": "Master Guild Ritual",
+      "services": [
+        "Master Shear Haircut",
+        "Triple-Towel Royal Shave",
+        "Beard Sculpting & Conditioning",
+        "Deep Scalp & Shoulder Massage",
+        "Complimentary Single Malt"
+      ]
+    }
+  ],
+  "team": [
+    {
+      "id": "sgg-team-01",
+      "name": "Arthur Pendelton",
+      "role": "Guild Master & 3rd Generation Barber",
+      "experience": "24 Years in Chair",
+      "bio": "Trained under European master barbers in traditional straight-razor craftsmanship and razor stropping.",
+      "image": "/src/assets/Team/emp5.png"
+    },
+    {
+      "id": "sgg-team-02",
+      "name": "Edward 'Ned' Kelly",
+      "role": "Senior Craftsman",
+      "experience": "14 Years in Chair",
+      "bio": "Master of scissor-over-comb techniques, parted pompadours, and bespoke beard oils.",
+      "image": "/src/assets/Team/emp1.png"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "sgg-rev-01",
+      "name": "Rupert Montgomery",
+      "date": "1 month ago",
+      "rating": 5,
+      "review": "A rare gem in Perth. Walking in feels like stepping into a private gentlemans club in Mayfair. Arthur's straight razor shave is second to none.",
+      "source": "Terrace Guild Ledger"
+    },
+    {
+      "id": "sgg-rev-02",
+      "name": "Dr. Gregory Vance",
+      "date": "2 months ago",
+      "rating": 5,
+      "review": "Unrushed, meticulous, and civilized. The hot towel and sandalwood treatment before an important symposium was perfection.",
+      "source": "Google Review"
+    }
+  ],
+  "ratingSummary": {
+    "score": 4.9,
+    "totalReviews": "240+ Patrons Reviewed",
+    "platform": "Guild Heritage Ledger"
+  },
+  "gallery": [
+    {
+      "id": "sgg-gal-01",
+      "title": "Straight Razor Strop",
+      "image": "/gallery/gallery-1.jpg",
+      "alt": "Master barber stropping straight razor"
+    },
+    {
+      "id": "sgg-gal-02",
+      "title": "Vintage Timber Stations",
+      "image": "/gallery/gallery-2.jpg",
+      "alt": "Classic timber stations and heritage leather chairs"
+    },
+    {
+      "id": "sgg-gal-03",
+      "title": "The Craftsman Shears",
+      "image": "/gallery/gallery-4.jpg",
+      "alt": "Precision scissors over comb"
+    },
+    {
+      "id": "sgg-gal-04",
+      "title": "The Guild Interior",
+      "image": "/gallery/gallery-5.jpg",
+      "alt": "Heritage barbershop atmosphere"
+    }
+  ],
+  "socialLinks": [
+    { "platform": "Instagram", "url": "https://instagram.com", "label": "@stgeorgebarberguild" },
+    { "platform": "Phone", "url": "tel:+61893214410", "label": "(08) 9321 4410" }
+  ],
+  "sections": {
+    "hero": true,
+    "marquee": true,
+    "story": true,
+    "services": true,
+    "packages": true,
+    "team": true,
+    "reviews": true,
+    "gallery": true,
+    "hours": true,
+    "contact": true,
+    "footer": true
+  }
+}

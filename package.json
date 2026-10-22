@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "test": "node --test 'src/**/*.test.js' && npx vite build --ssr scripts/verify-templates.js --outDir dist-test && node dist-test/verify-templates.js && rm -rf dist-test",
+    "test": "node --test 'src/**/*.test.js' && VITE_BARBER_SLUG=hammoudi npx vite build --ssr scripts/verify-templates.js --outDir dist-test && VITE_BARBER_SLUG=hammoudi node dist-test/verify-templates.js && rm -rf dist-test",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,0 +1,112 @@
+{
+  "$schema": "../../schemas/barberSchema.js",
+  "businessName": "Crown & Razor Studio",
+  "slug": "crown-and-razor",
+  "theme": "noir",
+  "tagline": "Modern Barbering & Bespoke Styling",
+  "location": "74 Barrack Street, Perth WA 6000",
+  "city": "Perth WA",
+  "addressLine": "74 Barrack Street",
+  "mapUrl": "https://maps.google.com/?q=74+Barrack+Street,+Perth+WA+6000",
+  "phone": "+61 8 9200 1122",
+  "email": "concierge@crownandrazor.com.au",
+  "bookingUrl": "https://www.fresha.com",
+  "businessDescription": "Independent barbershop specializing in precision haircuts, modern skin fades, and artisan hot towel razor shaves.",
+  "branding": {
+    "logo": null,
+    "heroImage": "/src/assets/hero.png",
+    "favicon": "/favicon.svg",
+    "tag": "PERTH CBD • EST. 2024",
+    "accentColor": "#d4af37"
+  },
+  "seo": {
+    "title": "Crown & Razor Studio | Master Barber & Fades | Perth",
+    "description": "Artisan grooming and haircuts in Perth CBD. Appointments and walk-ins welcome.",
+    "keywords": ["barber Perth", "skin fade Perth", "mens haircut", "shave"]
+  },
+  "hours": [
+    { "days": "Monday – Friday", "time": "8:30 AM – 6:00 PM" },
+    { "days": "Saturday", "time": "9:00 AM – 4:00 PM" },
+    { "days": "Sunday", "time": "Closed" }
+  ],
+  "services": [
+    {
+      "id": "cr-01",
+      "number": "01",
+      "name": "Crown Precision Haircut",
+      "category": "Cuts",
+      "description": "Tailored consultation, precision scissor and clipper work, hot neck shave finish.",
+      "price": "$40",
+      "duration": "35 mins",
+      "popular": true
+    },
+    {
+      "id": "cr-02",
+      "number": "02",
+      "name": "Zero Skin Fade",
+      "category": "Cuts",
+      "description": "Seamless razor or foil taper down to clean skin.",
+      "price": "$45",
+      "duration": "45 mins",
+      "popular": true
+    },
+    {
+      "id": "cr-03",
+      "number": "03",
+      "name": "Beard Sculpt & Razor Outline",
+      "category": "Beard",
+      "description": "Scissor contouring, hot steam wrap, and razor lineup.",
+      "price": "$30",
+      "duration": "25 mins",
+      "popular": false
+    }
+  ],
+  "packages": [
+    {
+      "id": "cr-pkg-01",
+      "number": "01",
+      "name": "The Royal Package",
+      "price": "$75",
+      "description": "Comprehensive grooming session: haircut, beard trim, and warm towel finish.",
+      "image": "/gallery/gallery-1.jpg",
+      "accent": "bg-neutral-800",
+      "services": ["Tailored Cut or Fade", "Beard Sculpt", "Hot Towel Shave Finish", "Styling Tonic"]
+    }
+  ],
+  "team": [
+    {
+      "id": "cr-team-01",
+      "name": "Julian Vance",
+      "role": "Founder & Master Barber",
+      "experience": "11 Years Experience",
+      "bio": "Specialist in classic shear tapering and skull-tailored fades.",
+      "image": "/src/assets/Team/emp5.png"
+    }
+  ],
+  "reviews": [],
+  "ratingSummary": null,
+  "gallery": [
+    {
+      "id": "cr-gal-01",
+      "title": "Chair Craft",
+      "image": "/gallery/gallery-3.jpg",
+      "alt": "Finished clean fade"
+    }
+  ],
+  "socialLinks": [
+    { "platform": "Instagram", "url": "https://instagram.com", "label": "@crownandrazor" }
+  ],
+  "sections": {
+    "hero": true,
+    "marquee": true,
+    "story": true,
+    "services": true,
+    "packages": true,
+    "team": true,
+    "reviews": false,
+    "gallery": true,
+    "hours": true,
+    "contact": true,
+    "footer": true
+  }
+}

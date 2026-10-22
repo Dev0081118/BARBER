@@ -5,12 +5,34 @@
  */
 
 export const THEMES = {
-  NOIR_LUXURY: "noir-luxury",
-  MODERN_STUDIO: "modern-studio",
-  HERITAGE_CLASSIC: "heritage-classic",
+  NOIR: "noir",
+  MODERN: "modern",
+  CLASSIC: "classic",
+  // Backward compatibility aliases
+  NOIR_LUXURY: "noir",
+  MODERN_STUDIO: "modern",
+  HERITAGE_CLASSIC: "classic",
 };
 
-export const VALID_THEMES = Object.values(THEMES);
+const THEME_ALIASES = {
+  noir: "noir",
+  "noir-luxury": "noir",
+  modern: "modern",
+  "modern-studio": "modern",
+  classic: "classic",
+  "heritage-classic": "classic",
+};
+
+export const VALID_THEMES = ["noir", "modern", "classic"];
+
+/**
+ * Normalizes a theme name.
+ */
+export function normalizeTheme(theme) {
+  if (!theme) return "noir";
+  const key = String(theme).toLowerCase().trim();
+  return THEME_ALIASES[key] || "noir";
+}
 
 /**
  * Validates and normalizes raw barber configuration data.
@@ -31,10 +53,7 @@ export function validateBarberConfig(raw) {
   const slug = (raw.slug || businessName.toLowerCase().replace(/[^a-z0-9]+/g, "-")).trim();
 
   // Validate theme with fallback
-  let theme = raw.theme;
-  if (!VALID_THEMES.includes(theme)) {
-    theme = THEMES.NOIR_LUXURY;
-  }
+  const theme = normalizeTheme(raw.theme);
 
   // Sanitize text fields
   const tagline = typeof raw.tagline === "string" ? raw.tagline.trim() : "";

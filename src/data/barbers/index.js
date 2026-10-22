@@ -1,31 +1,23 @@
-import nextLevelRaw from "./nextLevel.json";
-import districtNineRaw from "./districtNine.json";
-import stGeorgeGuildRaw from "./stGeorgeGuild.json";
-import { validateBarberConfig, THEMES } from "../../schemas/barberSchema.js";
-
-const rawBarbers = [nextLevelRaw, districtNineRaw, stGeorgeGuildRaw];
-
-// Validate all configs on load so any schema issue fails fast
-const validatedBarbers = rawBarbers.map((b) => validateBarberConfig(b));
-
-const barberMap = new Map(validatedBarbers.map((b) => [b.slug, b]));
+import { getAllClients, getClientBySlug, getDefaultDevClient } from "../clients/index.js";
+import { THEMES } from "../../schemas/barberSchema.js";
 
 export function getAllBarbers() {
-  return [...validatedBarbers];
+  return getAllClients();
 }
 
 export function getBarberBySlug(slug) {
-  if (!slug) return validatedBarbers[0];
-  return barberMap.get(slug) || validatedBarbers[0];
+  const found = getClientBySlug(slug);
+  return found || getDefaultDevClient();
 }
 
 export function getBarberByTheme(theme) {
-  const match = validatedBarbers.find((b) => b.theme === theme);
-  return match || validatedBarbers[0];
+  const all = getAllClients();
+  const match = all.find((b) => b.theme === theme);
+  return match || getDefaultDevClient();
 }
 
 export function getDefaultBarber() {
-  return validatedBarbers[0];
+  return getDefaultDevClient();
 }
 
 export { THEMES };

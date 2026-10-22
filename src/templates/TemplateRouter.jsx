@@ -1,9 +1,10 @@
 import { useState, useMemo } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { getAllBarbers, getBarberBySlug, THEMES } from "../data/barbers/index.js";
-import NoirLuxuryTemplate from "./NoirLuxuryTemplate.jsx";
-import ModernStudioTemplate from "./ModernStudioTemplate.jsx";
-import HeritageClassicTemplate from "./HeritageClassicTemplate.jsx";
+import { getAllBarbers, getBarberBySlug } from "../data/barbers/index.js";
+import { normalizeTheme } from "../schemas/barberSchema.js";
+import NoirTheme from "../themes/noir/NoirTheme.jsx";
+import ModernTheme from "../themes/modern/ModernTheme.jsx";
+import ClassicTheme from "../themes/classic/ClassicTheme.jsx";
 import ThemeSwitcherBar from "../components/shared/ThemeSwitcherBar.jsx";
 
 export default function TemplateRouter({ defaultSlug = "next-level-barbershop", forcedTheme = null }) {
@@ -21,11 +22,11 @@ export default function TemplateRouter({ defaultSlug = "next-level-barbershop", 
 
   // Determine active theme (from forced prop, URL param, query param, or barber config)
   const initialTheme = useMemo(() => {
-    if (forcedTheme) return forcedTheme;
-    if (themeName && Object.values(THEMES).includes(themeName)) return themeName;
+    if (forcedTheme) return normalizeTheme(forcedTheme);
+    if (themeName) return normalizeTheme(themeName);
     const qTheme = searchParams.get("theme");
-    if (qTheme && Object.values(THEMES).includes(qTheme)) return qTheme;
-    return baseBarber.theme || THEMES.NOIR_LUXURY;
+    if (qTheme) return normalizeTheme(qTheme);
+    return normalizeTheme(baseBarber.theme);
   }, [forcedTheme, themeName, searchParams, baseBarber]);
 
   const [activeTheme, setActiveTheme] = useState(initialTheme);
@@ -34,7 +35,6 @@ export default function TemplateRouter({ defaultSlug = "next-level-barbershop", 
   // Synchronize when route changes
   const activeBarber = useMemo(() => {
     const found = getBarberBySlug(selectedSlug);
-    // Return a cloned barber with current activeTheme if user explicitly switched themes
     return {
       ...found,
       theme: activeTheme,
@@ -42,10 +42,11 @@ export default function TemplateRouter({ defaultSlug = "next-level-barbershop", 
   }, [selectedSlug, activeTheme]);
 
   const handleThemeChange = (newTheme) => {
-    setActiveTheme(newTheme);
+    const normalized = normalizeTheme(newTheme);
+    setActiveTheme(normalized);
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
-      next.set("theme", newTheme);
+      next.set("theme", normalized);
       return next;
     });
   };
@@ -54,29 +55,32 @@ export default function TemplateRouter({ defaultSlug = "next-level-barbershop", 
     setSelectedSlug(newSlug);
     const newBarber = getBarberBySlug(newSlug);
     if (newBarber?.theme) {
-      setActiveTheme(newBarber.theme);
+      const norm = normalizeTheme(newBarber.theme);
+      setActiveTheme(norm);
     }
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
       next.set("barber", newSlug);
       if (newBarber?.theme) {
-        next.set("theme", newBarber.theme);
+        next.set("theme", normalizeTheme(newBarber.theme));
       }
       return next;
     });
   };
 
+  const renderTheme = () => {
+    if (activeTheme === "modern") {
+      return <ModernTheme barber={activeBarber} />;
+    }
+    if (activeTheme === "classic") {
+      return <ClassicTheme barber={activeBarber} />;
+    }
+    return <NoirTheme barber={activeBarber} />;
+  };
+
   return (
     <>
-      {activeTheme === THEMES.MODERN_STUDIO && (
-        <ModernStudioTemplate barber={activeBarber} />
-      )}
-      {activeTheme === THEMES.HERITAGE_CLASSIC && (
-        <HeritageClassicTemplate barber={activeBarber} />
-      )}
-      {activeTheme === THEMES.NOIR_LUXURY && (
-        <NoirLuxuryTemplate barber={activeBarber} />
-      )}
+      {renderTheme()}
 
       {/* Floating Theme & Barber Switcher */}
       <ThemeSwitcherBar
