@@ -6,6 +6,7 @@ import App from "../src/App.jsx";
 import NoirTheme from "../src/themes/noir/NoirTheme.jsx";
 import ModernTheme from "../src/themes/modern/ModernTheme.jsx";
 import ClassicTheme from "../src/themes/classic/ClassicTheme.jsx";
+import JulesTheme from "../src/themes/jules/JulesTheme.jsx";
 import { getThemeComponent } from "../src/themes/index.js";
 import { getAllClients, getClientBySlug } from "../src/data/clients/index.js";
 import DeploymentErrorScreen from "../src/components/shared/DeploymentErrorScreen.jsx";
@@ -62,13 +63,31 @@ assert(!classicHtml.includes("undefined"), "Must not contain 'undefined'");
 assert(!classicHtml.includes("NaN"), "Must not contain 'NaN'");
 console.log("✔ ClassicTheme renders successfully for St. George Barber Guild");
 
-// 5. Test Theme Dispatcher
+// 5. Test Jules Theme with Hammoudi Original client
+const hammoudiOriginal = getClientBySlug("hammoudi-original");
+assert(hammoudiOriginal, "Hammoudi Original client must exist");
+assert.strictEqual(hammoudiOriginal.theme, "jules");
+assert.strictEqual(hammoudiOriginal.businessName, "Hammoudi Barber Shop");
+assert.strictEqual(hammoudiOriginal.phone, "04 1691 7772");
+
+const julesHtml = renderToString(React.createElement(JulesTheme, { barber: hammoudiOriginal }));
+assert(julesHtml.includes("Hammoudi Barber Shop") || julesHtml.includes("HAMMOUDI"), "Must render business name");
+assert(julesHtml.includes("188 Adelaide Terrace"), "Must render authentic Adelaide Terrace location");
+assert(julesHtml.includes("Our Services"), "Must render services section");
+assert(julesHtml.includes("Packages"), "Must render packages section");
+assert(!julesHtml.includes("undefined"), "Must not contain 'undefined'");
+assert(!julesHtml.includes("NaN"), "Must not contain 'NaN'");
+console.log("✔ JulesTheme renders successfully for Hammoudi Barber Shop");
+
+// 6. Test Theme Dispatcher
 assert.strictEqual(getThemeComponent("noir"), NoirTheme);
 assert.strictEqual(getThemeComponent("modern"), ModernTheme);
 assert.strictEqual(getThemeComponent("classic"), ClassicTheme);
+assert.strictEqual(getThemeComponent("jules"), JulesTheme);
+assert.strictEqual(getThemeComponent("hammoudi-original"), JulesTheme);
 console.log("✔ Theme dispatcher maps theme names correctly to separated theme modules");
 
-// 6. Test App component with MemoryRouter
+// 7. Test App component with MemoryRouter
 const appHtml = renderToString(
   React.createElement(
     MemoryRouter,

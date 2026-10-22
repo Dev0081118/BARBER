@@ -8,10 +8,13 @@ export const THEMES = {
   NOIR: "noir",
   MODERN: "modern",
   CLASSIC: "classic",
+  JULES: "jules",
   // Backward compatibility aliases
   NOIR_LUXURY: "noir",
   MODERN_STUDIO: "modern",
   HERITAGE_CLASSIC: "classic",
+  HAMMOUDI_ORIGINAL: "jules",
+  ORIGINAL: "jules",
 };
 
 const THEME_ALIASES = {
@@ -21,9 +24,12 @@ const THEME_ALIASES = {
   "modern-studio": "modern",
   classic: "classic",
   "heritage-classic": "classic",
+  jules: "jules",
+  "hammoudi-original": "jules",
+  original: "jules",
 };
 
-export const VALID_THEMES = ["noir", "modern", "classic"];
+export const VALID_THEMES = ["noir", "modern", "classic", "jules"];
 
 /**
  * Normalizes a theme name.
@@ -172,6 +178,7 @@ export function validateBarberConfig(raw) {
     hero: raw.sections?.hero !== false,
     marquee: raw.sections?.marquee !== false,
     story: raw.sections?.story !== false && Boolean(businessDescription),
+    splitContent: raw.sections?.splitContent !== false,
     services: raw.sections?.services !== false && services.length > 0,
     packages: raw.sections?.packages !== false && packages.length > 0,
     gallery: raw.sections?.gallery !== false && gallery.length > 0,

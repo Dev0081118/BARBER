@@ -40,7 +40,7 @@ if [ -z "$CHANGED_FILES" ]; then
 fi
 
 # 1. Check for shared application code changes
-SHARED_PATTERNS="^(src/themes/|src/components/|src/schemas/|src/utils/|src/config/|src/App\.jsx|src/main\.jsx|src/index\.css|index\.html|package\.json|package-lock\.json|vite\.config\.js|vercel\.json)"
+SHARED_PATTERNS="^(src/themes/|src/components/|src/schemas/|src/utils/|src/config/|src/data/clients/index\.js|src/App\.jsx|src/main\.jsx|src/index\.css|index\.html|package\.json|package-lock\.json|vite\.config\.js|vercel\.json)"
 
 if echo "$CHANGED_FILES" | grep -Eq "$SHARED_PATTERNS"; then
   echo "✅ Shared template or core architecture changes detected."

@@ -36,6 +36,14 @@ export default function ThemeSwitcherBar({
       palette: ["#2a1418", "#fcf9f2", "#bfa05d"],
       recommendedSlug: "st-george-guild",
     },
+    {
+      id: THEMES.JULES,
+      title: "Jules Original",
+      subtitle: "Hammoudi Emerald Green & Copper",
+      icon: Compass,
+      palette: ["#0e291b", "#000000", "#c96b3c"],
+      recommendedSlug: "hammoudi-original",
+    },
   ];
 
   return (

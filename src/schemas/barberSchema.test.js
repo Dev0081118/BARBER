@@ -1,6 +1,11 @@
 import assert from "node:assert";
+import fs from "node:fs";
+import path from "node:path";
 import { test } from "node:test";
+import { fileURLToPath } from "node:url";
 import { validateBarberConfig, THEMES } from "./barberSchema.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 test("validates complete barber configuration", () => {
   const input = {
@@ -47,4 +52,49 @@ test("falls back to default theme when invalid theme is supplied", () => {
     theme: "neon-cyberpunk-unknown",
   });
   assert.strictEqual(result.theme, THEMES.NOIR_LUXURY);
+});
+
+test("validates jules theme and aliases", () => {
+  const julesResult = validateBarberConfig({
+    businessName: "Jules Barber",
+    theme: "jules",
+  });
+  assert.strictEqual(julesResult.theme, "jules");
+
+  const aliasResult = validateBarberConfig({
+    businessName: "Jules Alias Barber",
+    theme: "hammoudi-original",
+  });
+  assert.strictEqual(aliasResult.theme, "jules");
+
+  const originalResult = validateBarberConfig({
+    businessName: "Original Barber",
+    theme: "original",
+  });
+  assert.strictEqual(originalResult.theme, "jules");
+});
+
+test("verifies existing client configs retain their original theme mappings", () => {
+  const clientsDir = path.resolve(__dirname, "../data/clients");
+
+  const readClient = (name) => {
+    const raw = JSON.parse(fs.readFileSync(path.join(clientsDir, `${name}.json`), "utf-8"));
+    return validateBarberConfig(raw);
+  };
+
+  const hammoudi = readClient("hammoudi");
+  assert.strictEqual(hammoudi.theme, "noir");
+  assert.strictEqual(hammoudi.businessName, "Next Level Barbershop");
+
+  const districtNine = readClient("district-nine");
+  assert.strictEqual(districtNine.theme, "modern");
+  assert.strictEqual(districtNine.businessName, "District 9 Barber Co.");
+
+  const stGeorge = readClient("st-george-guild");
+  assert.strictEqual(stGeorge.theme, "classic");
+  assert.strictEqual(stGeorge.businessName, "St. George Barber Guild");
+
+  const hammoudiOriginal = readClient("hammoudi-original");
+  assert.strictEqual(hammoudiOriginal.theme, "jules");
+  assert.strictEqual(hammoudiOriginal.businessName, "Hammoudi Barber Shop");
 });

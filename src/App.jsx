@@ -4,6 +4,7 @@ import { resolveActiveClient, getAllClients } from "./config/clientResolver.js";
 import NoirTheme from "./themes/noir/NoirTheme.jsx";
 import ModernTheme from "./themes/modern/ModernTheme.jsx";
 import ClassicTheme from "./themes/classic/ClassicTheme.jsx";
+import JulesTheme from "./themes/jules/JulesTheme.jsx";
 import DeploymentErrorScreen from "./components/shared/DeploymentErrorScreen.jsx";
 import ThemeSwitcherBar from "./components/shared/ThemeSwitcherBar.jsx";
 import Privacy from "./pages/privacy.jsx";
@@ -61,6 +62,9 @@ export default function App() {
     }
     if (activeClient.theme === "classic") {
       return <ClassicTheme barber={activeClient} />;
+    }
+    if (activeClient.theme === "jules") {
+      return <JulesTheme barber={activeClient} />;
     }
     return <NoirTheme barber={activeClient} />;
   };

@@ -1,11 +1,13 @@
 import NoirTheme from "./noir/NoirTheme.jsx";
 import ModernTheme from "./modern/ModernTheme.jsx";
 import ClassicTheme from "./classic/ClassicTheme.jsx";
+import JulesTheme from "./jules/JulesTheme.jsx";
 
 export const THEMES = {
   NOIR: "noir",
   MODERN: "modern",
   CLASSIC: "classic",
+  JULES: "jules",
 };
 
 export const THEME_COMPONENTS = {
@@ -15,6 +17,9 @@ export const THEME_COMPONENTS = {
   "modern-studio": ModernTheme,
   classic: ClassicTheme,
   "heritage-classic": ClassicTheme,
+  jules: JulesTheme,
+  "hammoudi-original": JulesTheme,
+  original: JulesTheme,
 };
 
 /**
@@ -28,4 +33,4 @@ export function getThemeComponent(themeName) {
   return THEME_COMPONENTS[normalized] || NoirTheme;
 }
 
-export { NoirTheme, ModernTheme, ClassicTheme };
+export { NoirTheme, ModernTheme, ClassicTheme, JulesTheme };

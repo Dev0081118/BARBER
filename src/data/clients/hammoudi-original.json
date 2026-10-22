@@ -1,0 +1,278 @@
+{
+  "businessName": "Hammoudi Barber Shop",
+  "slug": "hammoudi-original",
+  "theme": "jules",
+  "tagline": "HIGHEST QUALITY CUTS & SHAVES",
+  "location": "Perth",
+  "city": "Perth",
+  "addressLine": "188 Adelaide Terrace, Perth WA 6004, Australia",
+  "mapUrl": "https://www.google.com/search?q=Hammoudi+Barber+Shop+Perth",
+  "phone": "04 1691 7772",
+  "email": "hello@hammoudibarber.com",
+  "bookingUrl": "#packages",
+  "businessDescription": "The art of traditional barbering,\nrefined for the modern gentleman.",
+  "branding": {
+    "logo": "/src/assets/logo/logo2.png",
+    "heroImage": "/src/assets/hero2.png",
+    "favicon": "/favicon.svg",
+    "tag": "Premium Grooming",
+    "accentColor": "#c96b3c"
+  },
+  "seo": {
+    "title": "Hammoudi Barber Shop | Highest Quality Cuts & Shaves | Perth",
+    "description": "The art of traditional barbering, refined for the modern gentleman at Hammoudi Barber Shop in Perth.",
+    "keywords": [
+      "Hammoudi Barber Shop",
+      "Perth barber",
+      "Adelaide Terrace barber",
+      "traditional barber Perth",
+      "mens haircut Perth"
+    ]
+  },
+  "hours": [
+    { "days": "Monday – Wednesday", "time": "9:00 AM – 6:00 PM" },
+    { "days": "Thursday – Friday", "time": "9:00 AM – 8:00 PM" },
+    { "days": "Saturday", "time": "8:00 AM – 4:00 PM" },
+    { "days": "Sunday", "time": "Closed" }
+  ],
+  "services": [
+    {
+      "id": "srv-01",
+      "number": "01",
+      "name": "Classic Haircut",
+      "category": "Cuts",
+      "description": "A timeless cut tailored to your face, style and personality.",
+      "price": "$35",
+      "duration": "30 mins",
+      "popular": true
+    },
+    {
+      "id": "srv-02",
+      "number": "02",
+      "name": "Skin Fade",
+      "category": "Cuts",
+      "description": "A precise fade blended seamlessly from skin to your desired length.",
+      "price": "$40",
+      "duration": "45 mins",
+      "popular": true
+    },
+    {
+      "id": "srv-03",
+      "number": "03",
+      "name": "Beard Trim",
+      "category": "Beard",
+      "description": "Shape, trim and define your beard for a clean, refined finish.",
+      "price": "$25",
+      "duration": "20 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-04",
+      "number": "04",
+      "name": "Hair & Beard",
+      "category": "Combo",
+      "description": "Our complete grooming experience. Haircut paired with a detailed beard trim.",
+      "price": "$55",
+      "duration": "50 mins",
+      "popular": true
+    },
+    {
+      "id": "srv-05",
+      "number": "05",
+      "name": "Hot Towel Shave",
+      "category": "Rituals",
+      "description": "Traditional straight-razor shave with a warm, relaxing towel treatment.",
+      "price": "$35",
+      "duration": "35 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-06",
+      "number": "06",
+      "name": "Hair Styling",
+      "category": "Styling",
+      "description": "Professional styling and finishing for any occasion.",
+      "price": "$25",
+      "duration": "20 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-07",
+      "number": "07",
+      "name": "Kids Haircut",
+      "category": "Cuts",
+      "description": "A comfortable and stylish haircut for our younger guests.",
+      "price": "$25",
+      "duration": "25 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-08",
+      "number": "08",
+      "name": "Head Shave",
+      "category": "Cuts",
+      "description": "A clean, smooth shave finished with premium grooming products.",
+      "price": "$30",
+      "duration": "30 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-09",
+      "number": "09",
+      "name": "Beard Sculpting",
+      "category": "Beard",
+      "description": "Detailed beard design, shaping and precision razor work.",
+      "price": "$35",
+      "duration": "30 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-10",
+      "number": "10",
+      "name": "Premium Grooming",
+      "category": "Combo",
+      "description": "Haircut, beard, hot towel and styling — the complete experience.",
+      "price": "$75",
+      "duration": "60 mins",
+      "popular": true
+    }
+  ],
+  "packages": [
+    {
+      "id": "pkg-01",
+      "number": "01",
+      "name": "Silver",
+      "price": "$55",
+      "description": "Everything you need for a clean, refined look without overcomplicating it.",
+      "services": [
+        "Classic Haircut",
+        "Beard Trim",
+        "Hair Styling",
+        "Hot Towel Finish"
+      ],
+      "accent": "bg-[#e8e8e8]"
+    },
+    {
+      "id": "pkg-02",
+      "number": "02",
+      "name": "Gold",
+      "price": "$85",
+      "description": "Our complete grooming experience, combining precision, relaxation and style.",
+      "services": [
+        "Premium Haircut",
+        "Skin Fade",
+        "Beard Sculpting",
+        "Hot Towel Shave",
+        "Hair Styling"
+      ],
+      "accent": "bg-[#d6b36a]"
+    }
+  ],
+  "team": [
+    {
+      "id": "01",
+      "name": "Joshua Lawrence",
+      "role": "Master Barber",
+      "image": "/src/assets/Team/emp5.png"
+    },
+    {
+      "id": "02",
+      "name": "Marcus Miller",
+      "role": "Senior Barber",
+      "image": "/src/assets/Team/emp1.png"
+    },
+    {
+      "id": "03",
+      "name": "Daniel Smith",
+      "role": "Barber & Stylist",
+      "image": "/src/assets/Team/emp2.png"
+    },
+    {
+      "id": "04",
+      "name": "Ryan Wilson",
+      "role": "Senior Stylist",
+      "image": "/src/assets/Team/emp4.png"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-01",
+      "name": "John Gallager",
+      "date": "3 weeks ago",
+      "review": "Top notch. Enough said. Give a little extra if you appreciate quality.",
+      "rating": 5,
+      "source": "Google Review"
+    },
+    {
+      "id": "rev-02",
+      "name": "Michael Kempe",
+      "date": "1 month ago",
+      "review": "Still the best hairdresser in Perth by far. Great barber shop, friendly quality service and reasonably priced.",
+      "rating": 5,
+      "source": "Google Review"
+    },
+    {
+      "id": "rev-03",
+      "name": "SK Krishnan",
+      "date": "1 month ago",
+      "review": "Haircut was good.",
+      "rating": 5,
+      "source": "Google Review"
+    },
+    {
+      "id": "rev-04",
+      "name": "Abu Omar",
+      "date": "1 month ago",
+      "review": "Good haircut with affordable price. Till I'm in Perth I will go there.",
+      "rating": 5,
+      "source": "Google Review"
+    },
+    {
+      "id": "rev-05",
+      "name": "Gabriele",
+      "date": "1 month ago",
+      "review": "Best barber in town.",
+      "rating": 5,
+      "source": "Google Review"
+    }
+  ],
+  "ratingSummary": {
+    "score": 4.6,
+    "totalReviews": "350+ reviews",
+    "platform": "Google"
+  },
+  "gallery": [
+    { "id": "01", "image": "/gallery/gallery-1.jpg", "title": "The Craft" },
+    { "id": "02", "image": "/gallery/gallery-2.jpg", "title": "Inside Hammoudi" },
+    { "id": "03", "image": "/gallery/gallery-3.jpg", "title": "The Details" },
+    { "id": "04", "image": "/gallery/gallery-4.jpg", "title": "Sharp & Clean" },
+    { "id": "05", "image": "/gallery/gallery-5.jpg", "title": "The Experience" },
+    { "id": "06", "image": "/gallery/gallery-6.jpg", "title": "Behind The Chair" }
+  ],
+  "socialLinks": [
+    {
+      "platform": "Instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/hammoudi_barber_shop/"
+    },
+    {
+      "platform": "Facebook",
+      "label": "Facebook",
+      "url": "https://www.facebook.com/p/Hammoudi-barber-shop-100063867472962"
+    }
+  ],
+  "sections": {
+    "hero": true,
+    "marquee": true,
+    "story": true,
+    "splitContent": true,
+    "services": true,
+    "packages": true,
+    "team": true,
+    "reviews": true,
+    "gallery": true,
+    "hours": true,
+    "contact": true,
+    "footer": true
+  }
+}
