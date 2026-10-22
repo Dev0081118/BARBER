@@ -1,0 +1,271 @@
+{
+  "businessName": "Next Level Barbershop",
+  "slug": "next-level-barbershop",
+  "theme": "noir-luxury",
+  "tagline": "Precision Cuts. Sharp Fades. A Proper Chair Experience.",
+  "location": "56 William St, Perth WA 6000",
+  "city": "Perth WA",
+  "addressLine": "56 William St, Perth CBD",
+  "mapUrl": "https://maps.google.com/?q=56+William+St,+Perth+WA+6000",
+  "phone": "+61 415 300 889",
+  "email": "hello@nextlevelbarbershop.com.au",
+  "bookingUrl": "https://www.fresha.com/lvp/next-level-barber-shop-william-street-perth-KzBqYq",
+  "businessDescription": "Built for Perth. Next Level is a modern luxury barbershop for clean cuts, confident fades, and proper conversation. We blend classic barbering technique with a sharp, current point of view, delivering an experience that feels as good as the finish looks.",
+  "branding": {
+    "logo": "/src/assets/logo/logo2.png",
+    "heroImage": "/src/assets/hero.png",
+    "tag": "PERTH CBD • EST. 2018",
+    "accentColor": "#d4af37"
+  },
+  "hours": [
+    { "days": "Monday – Wednesday", "time": "9:00 AM – 6:00 PM" },
+    { "days": "Thursday – Friday", "time": "9:00 AM – 7:30 PM" },
+    { "days": "Saturday", "time": "8:30 AM – 5:00 PM" },
+    { "days": "Sunday", "time": "10:00 AM – 4:00 PM" }
+  ],
+  "services": [
+    {
+      "id": "srv-01",
+      "number": "01",
+      "name": "Classic Haircut",
+      "category": "Cuts",
+      "description": "A timeless cut tailored to your face, style, and skull anatomy. Finished with hot towel neck shave.",
+      "price": "$35",
+      "duration": "30 mins",
+      "popular": true
+    },
+    {
+      "id": "srv-02",
+      "number": "02",
+      "name": "Skin Fade",
+      "category": "Cuts",
+      "description": "Seamless transition from foil shaver down to skin, foil-blended and finished with precision clipper work.",
+      "price": "$40",
+      "duration": "45 mins",
+      "popular": true
+    },
+    {
+      "id": "srv-03",
+      "number": "03",
+      "name": "Beard Sculpt & Razor Edge",
+      "category": "Beard",
+      "description": "Sculpt, debulk, and line up the beard with Japanese razor blade finishing and organic beard elixir.",
+      "price": "$25",
+      "duration": "25 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-04",
+      "number": "04",
+      "name": "The Executive: Cut & Beard",
+      "category": "Combo",
+      "description": "Our signature combination: tailored haircut, detailed beard shaping, and steam towel relaxation.",
+      "price": "$55",
+      "duration": "50 mins",
+      "popular": true
+    },
+    {
+      "id": "srv-05",
+      "number": "05",
+      "name": "Traditional Hot Towel Shave",
+      "category": "Rituals",
+      "description": "Essential eucalyptus prep oil, dual warm towel infusion, and traditional straight razor shave.",
+      "price": "$35",
+      "duration": "35 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-06",
+      "number": "06",
+      "name": "Hair Styling & Texture Finish",
+      "category": "Styling",
+      "description": "Wash, blow-dry sculpt, and matte clay or pomade texturing for events and meetings.",
+      "price": "$25",
+      "duration": "20 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-07",
+      "number": "07",
+      "name": "Young Gentleman's Cut",
+      "category": "Cuts",
+      "description": "Patient, comfortable styling for younger clients aged 12 and under.",
+      "price": "$25",
+      "duration": "25 mins",
+      "popular": false
+    },
+    {
+      "id": "srv-08",
+      "number": "08",
+      "name": "Head Shave & Polish",
+      "category": "Rituals",
+      "description": "Hot foam straight razor scalp shave followed by soothing menthol toner and scalp moisture treatment.",
+      "price": "$30",
+      "duration": "30 mins",
+      "popular": false
+    }
+  ],
+  "packages": [
+    {
+      "id": "pkg-01",
+      "number": "01",
+      "name": "The Silver Groom",
+      "price": "$55",
+      "description": "Refined fundamental grooming essentials executed with razor-sharp precision.",
+      "image": "/scrollwindow/joshua-lawrence-dU6eE_j2My8-unsplash.jpg",
+      "accent": "bg-neutral-800",
+      "services": [
+        "Precision Haircut or Fade",
+        "Beard Outline & Trim",
+        "Hair Sculpting & Matte Finish",
+        "Hot Towel Refresh"
+      ]
+    },
+    {
+      "id": "pkg-02",
+      "number": "02",
+      "name": "The Gold Reserve",
+      "price": "$85",
+      "description": "The full master barber chair ritual: meticulous cut, straight razor beard sculpt, and aromatic steam treatment.",
+      "image": "/scrollwindow/setting.avif",
+      "accent": "bg-[#c5a059]",
+      "badge": "Signature Ritual",
+      "services": [
+        "Master Haircut & Skin Fade",
+        "Cut-Throat Razor Shave",
+        "Detailed Beard Architecture",
+        "Dual Steam Towel Infusion",
+        "Scalp Massage & Tonic"
+      ]
+    }
+  ],
+  "team": [
+    {
+      "id": "team-01",
+      "name": "Joshua Lawrence",
+      "role": "Master Barber & Founder",
+      "experience": "12+ Years Experience",
+      "bio": "Specialising in classic shears and sharp sculptural fades tailored to individual skull geometry.",
+      "image": "/src/assets/Team/emp5.png"
+    },
+    {
+      "id": "team-02",
+      "name": "Marcus Miller",
+      "role": "Senior Barber",
+      "experience": "8+ Years Experience",
+      "bio": "Expert in taper fades, hot towel razor rituals, and beard architecture.",
+      "image": "/src/assets/Team/emp1.png"
+    },
+    {
+      "id": "team-03",
+      "name": "Daniel Smith",
+      "role": "Barber & Texture Stylist",
+      "experience": "6+ Years Experience",
+      "bio": "Focused on contemporary texturing, mullet flow, and modern scissors over comb.",
+      "image": "/src/assets/Team/emp2.png"
+    },
+    {
+      "id": "team-04",
+      "name": "Ryan Wilson",
+      "role": "Senior Stylist",
+      "experience": "7+ Years Experience",
+      "bio": "Precision beard specialist and straight-edge blade craftsman.",
+      "image": "/src/assets/Team/emp3.png"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-01",
+      "name": "John Gallagher",
+      "date": "3 weeks ago",
+      "rating": 5,
+      "review": "Top notch. Enough said. Give a little extra if you appreciate authentic quality and attention to detail in Perth.",
+      "source": "Google Review"
+    },
+    {
+      "id": "rev-02",
+      "name": "Michael Kempe",
+      "date": "1 month ago",
+      "rating": 5,
+      "review": "Still the best barbershop in Perth by far. Clean shop, friendly quality service, sharp razor work, and reasonably priced.",
+      "source": "Google Review"
+    },
+    {
+      "id": "rev-03",
+      "name": "Abu Omar",
+      "date": "1 month ago",
+      "rating": 5,
+      "review": "Unmatched skin fade with great hospitality. As long as I'm in Perth, this is my regular chair.",
+      "source": "Google Review"
+    },
+    {
+      "id": "rev-04",
+      "name": "Gabriele M.",
+      "date": "2 months ago",
+      "rating": 5,
+      "review": "Best barbers in town. The vibe is relaxed, music is dialed in, and the fades are consistently immaculate.",
+      "source": "Google Review"
+    }
+  ],
+  "ratingSummary": {
+    "score": 4.8,
+    "totalReviews": "350+ Google Reviews",
+    "platform": "Google Verified Perth"
+  },
+  "gallery": [
+    {
+      "id": "gal-01",
+      "title": "The Razor Line",
+      "image": "/gallery/gallery-1.jpg",
+      "alt": "Barber straight razor lineup in progress"
+    },
+    {
+      "id": "gal-02",
+      "title": "Studio Atmosphere",
+      "image": "/gallery/gallery-2.jpg",
+      "alt": "Interior view of barber stations and leather chairs"
+    },
+    {
+      "id": "gal-03",
+      "title": "Clean Precision",
+      "image": "/gallery/gallery-3.jpg",
+      "alt": "Finished clean skin fade and beard trim"
+    },
+    {
+      "id": "gal-04",
+      "title": "The Detail Work",
+      "image": "/gallery/gallery-4.jpg",
+      "alt": "Close-up shear craftsmanship"
+    },
+    {
+      "id": "gal-05",
+      "title": "Perth Chair Culture",
+      "image": "/gallery/gallery-5.jpg",
+      "alt": "Barbershop culture and community"
+    },
+    {
+      "id": "gal-06",
+      "title": "Final Touch",
+      "image": "/gallery/gallery-6.jpg",
+      "alt": "Finished premium styling and blow dry"
+    }
+  ],
+  "socialLinks": [
+    { "platform": "Instagram", "url": "https://www.instagram.com/next_level_barbershop_perth/", "label": "@next_level_barbershop_perth" },
+    { "platform": "Fresha", "url": "https://www.fresha.com/lvp/next-level-barber-shop-william-street-perth-KzBqYq", "label": "Book on Fresha" },
+    { "platform": "Google Maps", "url": "https://maps.google.com/?q=56+William+St,+Perth+WA+6000", "label": "Perth CBD Location" }
+  ],
+  "sections": {
+    "hero": true,
+    "marquee": true,
+    "story": true,
+    "services": true,
+    "packages": true,
+    "team": true,
+    "reviews": true,
+    "gallery": true,
+    "hours": true,
+    "contact": true,
+    "footer": true
+  }
+}
