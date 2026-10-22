@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "GT Super";
+  src: url("./assets/GT-fonts/GT-Super-Display-Light-Trial.woff")
+    format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT Super";
+  src: url("./assets/GT-fonts/GT-Super-Display-Regular-Trial.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT Super";
+  src: url("./assets/GT-fonts/GT-Super-Display-Medium-Trial.woff")
+    format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT Super";
+  src: url("./assets/GT-fonts/GT-Super-Display-Bold-Trial.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT Super";
+  src: url("./assets/GT-fonts/GT-Super-Display-Super-Trial.woff")
+    format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("./assets/Helvetica-Neue/HelveticaNeue-Thin.otf")
+    format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("./assets/Helvetica-Neue/HelveticaNeue-Light.otf")
+    format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("./assets/Helvetica-Neue/HelveticaNeue-Roman.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("./assets/Helvetica-Neue/HelveticaNeue-Medium.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("./assets/Helvetica-Neue/HelveticaNeue-Bold.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@theme {
+  --font-helvetica: "Helvetica Neue", sans-serif;
+  --font-gt-super: "GT Super", serif;
+}
