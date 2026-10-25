@@ -32,6 +32,18 @@ export default function App() {
 
   const allClients = useMemo(() => (isDev ? getAllClients() : []), [isDev]);
 
+  const rootTypographyStyle = useMemo(() => {
+    const style = {};
+    if (activeClient?.branding?.headingFont) {
+      style["--font-heading"] = activeClient.branding.headingFont;
+    }
+    if (activeClient?.branding?.bodyFont) {
+      style["--font-body"] = activeClient.branding.bodyFont;
+      style.fontFamily = activeClient.branding.bodyFont;
+    }
+    return style;
+  }, [activeClient]);
+
   // If configuration error in production, halt safely
   if (resolution.status === "error" || !activeClient) {
     return (
@@ -70,7 +82,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden">
+    <div className="min-h-screen w-full overflow-x-hidden" style={rootTypographyStyle}>
+      {isDev && Array.isArray(activeClient?.branding?.fontSources) && activeClient.branding.fontSources.map((fUrl) => (
+        <link key={fUrl} rel="stylesheet" href={fUrl} />
+      ))}
       <Routes>
         <Route path="/" element={renderActiveTheme()} />
         <Route path="/privacy" element={<Privacy clientName={activeClient.businessName} />} />

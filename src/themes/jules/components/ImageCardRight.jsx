@@ -1,34 +1,57 @@
 import trimmerImage from "/scrollwindow/trimmer.avif";
 import settingImage from "/scrollwindow/setting.avif";
+import ResponsiveImage from "../../../components/shared/ResponsiveImage.jsx";
+import { getSectionConfig, getSectionStyleProperties } from "../../../schemas/barberSchema.js";
 
 export default function ImageCardRight({ barber }) {
-  const bookingUrl = barber?.bookingUrl || "#packages";
+  const splitConfig = getSectionConfig(barber, "splitContent");
+  const bookingUrl = splitConfig.content.rightCtaUrl || barber?.bookingUrl || "#packages";
+  const rightTag = splitConfig.content.rightTag || "Where tradition meets modern style";
+  const rightHeading = splitConfig.content.rightHeading || "Crafted with precision.\nDefined by style.";
+  const rightDesc = splitConfig.content.rightDescription || "Premium grooming, timeless style and a relaxing atmosphere. From precision cuts to traditional shaves, every service is crafted with attention to detail and tailored to you.";
+  const rightCta = splitConfig.content.rightCtaText || "Book an appointment";
+
+  const bgImg = splitConfig.images.rightBg || trimmerImage;
+  const overlayImg = splitConfig.images.rightOverlay || settingImage;
+
+  const rightStyles = getSectionStyleProperties(splitConfig.style, {
+    backgroundColor: "#ffffff",
+    textColor: "#000000",
+    headingColor: "#000000",
+  });
 
   return (
-    <div className="relative flex w-full flex-col overflow-hidden md:h-screen md:flex-row">
+    <div
+      style={rightStyles}
+      className="relative flex w-full flex-col overflow-hidden md:h-screen md:flex-row"
+    >
       {/* RIGHT SIDE (TEXT) */}
       <div className="order-2 flex h-screen w-full items-center justify-center bg-white p-5 py-14 md:order-none md:h-full md:w-1/2 md:px-0 md:py-0">
         <div className="w-full md:w-[70%] md:max-w-none">
           <p className="mb-5 text-sm font-semibold uppercase tracking-wide">
-            Where tradition meets modern style
+            {rightTag}
           </p>
 
-          <h1 className="text-4xl leading-tight md:text-5xl">
-            Crafted with precision.
-            <br />
-            Defined by style.
+          <h1
+            style={{ color: splitConfig.style?.headingColor }}
+            className="text-4xl leading-tight md:text-5xl whitespace-pre-line"
+          >
+            {rightHeading}
           </h1>
 
           <p className="mt-8 text-base leading-relaxed md:text-lg">
-            Premium grooming, timeless style and a relaxing atmosphere. From
-            precision cuts to traditional shaves, every service is crafted with
-            attention to detail and tailored to you.
+            {rightDesc}
           </p>
 
           <a
             href={bookingUrl}
             target={bookingUrl.startsWith("http") ? "_blank" : undefined}
             rel={bookingUrl.startsWith("http") ? "noopener noreferrer" : undefined}
+            style={{
+              backgroundColor: splitConfig.style?.buttonBackground,
+              color: splitConfig.style?.buttonTextColor,
+              borderColor: splitConfig.style?.buttonBorderColor,
+            }}
             className="
               relative
               mt-8
@@ -60,7 +83,7 @@ export default function ImageCardRight({ barber }) {
             "
           >
             <span className="relative z-10 transition-colors duration-300">
-              Book an appointment
+              {rightCta}
             </span>
           </a>
         </div>
@@ -72,15 +95,15 @@ export default function ImageCardRight({ barber }) {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url(${trimmerImage})`,
+            backgroundImage: `url(${bgImg})`,
           }}
         />
 
         {/* Small Image on top */}
         <div className="absolute top-1/2 right-[15%] h-[55%] w-[45%] -translate-y-1/2">
-          <img
-            src={settingImage}
-            alt="Barber shop"
+          <ResponsiveImage
+            image={splitConfig.images.rightOverlay || overlayImg}
+            alt="Barber setting"
             className="h-full w-full object-cover"
           />
         </div>

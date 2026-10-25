@@ -1,32 +1,54 @@
 import heroImageDefault from "../../../assets/hero2.png";
+import { getSectionConfig, getSectionStyleProperties } from "../../../schemas/barberSchema.js";
 
 export default function Hero({ barber }) {
-  const rawHero = barber?.branding?.heroImage;
+  const heroConfig = getSectionConfig(barber, "hero");
+  const rawHero = heroConfig.images?.heroImage || barber?.branding?.heroImage;
   const heroImg = !rawHero || rawHero.startsWith("/src/assets/") ? heroImageDefault : rawHero;
-  const subtitle = barber?.branding?.tag || "Premium Grooming";
-  const bookingUrl = barber?.bookingUrl || "#packages";
+  const subtitle = heroConfig.content.badge || barber?.branding?.tag || "Premium Grooming";
+  const bookingUrl = heroConfig.content.primaryCtaUrl || barber?.bookingUrl || "#packages";
+  const primaryCta = heroConfig.content.primaryCtaText || "Book an appointment →";
 
-  const businessName = (barber?.businessName || "HAMMOUDI BARBER SHOP").toUpperCase();
+  const businessName = (heroConfig.content.title || barber?.businessName || "HAMMOUDI BARBER SHOP").toUpperCase();
   const words = businessName.split(" ");
   const line1 = words[0] || "HAMMOUDI";
   const line2 = words.slice(1).join(" ") || "BARBER SHOP";
 
   const description =
+    heroConfig.content.description ||
     barber?.businessDescription ||
     "The art of traditional barbering,\nrefined for the modern gentleman.";
+
+  const heroStyles = getSectionStyleProperties(heroConfig.style, {
+    backgroundColor: "#000000",
+    textColor: "#ffffff",
+    headingColor: "#ffffff",
+    accentColor: barber?.branding?.accentColor || "#c96b3c",
+  });
+
+  const overlayColor = heroConfig.style?.overlayColor || "#000000";
+  const overlayOpacity = heroConfig.style?.overlayOpacity ?? 0.45;
+  const showScroll = heroConfig.content.showScrollIndicator !== false;
 
   return (
     <section
       id="home"
-      className="relative h-screen min-h-[700px] overflow-hidden bg-black"
       style={{
+        ...heroStyles,
         backgroundImage: `url(${heroImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
+      className="relative h-screen min-h-[700px] overflow-hidden bg-black"
     >
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/45" />
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundColor: overlayColor,
+          opacity: overlayOpacity,
+        }}
+      />
 
       {/* Subtle bottom gradient */}
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
@@ -45,7 +67,10 @@ export default function Hero({ barber }) {
             </p>
           </div>
 
-          <h1 className="max-w-[1200px] font-gt-super text-6xl font-medium leading-[0.85] tracking-[-0.04em] text-white sm:text-7xl md:text-8xl lg:text-[10rem]">
+          <h1
+            style={{ color: heroConfig.style?.headingColor }}
+            className="max-w-[1200px] font-gt-super text-6xl font-medium leading-[0.85] tracking-[-0.04em] text-white sm:text-7xl md:text-8xl lg:text-[10rem]"
+          >
             {line1}
             <br />
             <span className="ml-[8vw]">{line2}</span>
@@ -57,65 +82,74 @@ export default function Hero({ barber }) {
             </p>
 
             {/* BOOK BUTTON */}
-            <a
-              href={bookingUrl}
-              target={bookingUrl.startsWith("http") ? "_blank" : undefined}
-              rel={bookingUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="
-                group
-                relative
-                w-fit
-                overflow-hidden
-                border
-                border-white
-                px-8
-                py-4
-                font-helvetica
-                text-xs
-                font-medium
-                uppercase
-                tracking-[0.2em]
-                text-white
-              "
-            >
-              <span
+            {bookingUrl && (
+              <a
+                href={bookingUrl}
+                target={bookingUrl.startsWith("http") ? "_blank" : undefined}
+                rel={bookingUrl.startsWith("http") ? "noopener noreferrer" : undefined}
+                style={{
+                  backgroundColor: heroConfig.style?.buttonBackground,
+                  color: heroConfig.style?.buttonTextColor,
+                  borderColor: heroConfig.style?.buttonBorderColor,
+                }}
                 className="
-                  absolute
-                  inset-0
-                  origin-left
-                  scale-x-0
-                  bg-white
-                  transition-transform
-                  duration-500
-                  ease-out
-                  group-hover:scale-x-100
-                  group-active:scale-x-100
-                "
-              />
-
-              <span
-                className="
+                  group
                   relative
-                  z-10
-                  transition-colors
-                  duration-500
-                  group-hover:text-black
-                  group-active:text-black
+                  w-fit
+                  overflow-hidden
+                  border
+                  border-white
+                  px-8
+                  py-4
+                  font-helvetica
+                  text-xs
+                  font-medium
+                  uppercase
+                  tracking-[0.2em]
+                  text-white
                 "
               >
-                Book an appointment →
-              </span>
-            </a>
+                <span
+                  className="
+                    absolute
+                    inset-0
+                    origin-left
+                    scale-x-0
+                    bg-white
+                    transition-transform
+                    duration-500
+                    ease-out
+                    group-hover:scale-x-100
+                    group-active:scale-x-100
+                  "
+                />
+
+                <span
+                  className="
+                    relative
+                    z-10
+                    transition-colors
+                    duration-500
+                    group-hover:text-black
+                    group-active:text-black
+                  "
+                >
+                  {primaryCta}
+                </span>
+              </a>
+            )}
           </div>
         </div>
 
         {/* BOTTOM INDICATOR */}
-        <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 md:flex">
-          <span className="font-helvetica text-[10px] uppercase tracking-[0.3em] text-white/50">
-            Scroll
-          </span>
-          <span className="h-12 w-px bg-white/40" />
-        </div>
+        {showScroll && (
+          <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 md:flex">
+            <span className="font-helvetica text-[10px] uppercase tracking-[0.3em] text-white/50">
+              Scroll
+            </span>
+            <span className="h-12 w-px bg-white/40" />
+          </div>
+        )}
       </div>
     </section>
   );

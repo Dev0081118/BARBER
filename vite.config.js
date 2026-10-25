@@ -5,18 +5,29 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { validateBarberConfig } from "./src/schemas/barberSchema.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 /**
  * Multi-Client Master Template Plugin
  * - Validates VITE_BARBER_SLUG at build time
  * - Prevents deploying invalid or missing client configurations
- * - Injects client-specific SEO metadata and favicon into HTML
+ * - Injects client-specific SEO metadata, favicon, OpenGraph, Twitter, and JSON-LD structured data into HTML
  */
 function barberMultiClientPlugin() {
   let resolvedSlug = "";
-  let clientData = null;
+  let validatedClient = null;
 
   return {
     name: "barber-multi-client-plugin",
@@ -36,6 +47,8 @@ function barberMultiClientPlugin() {
       const aliases = {
         "next-level": "hammoudi",
         "next-level-barbershop": "hammoudi",
+        "jules": "hammoudi-original",
+        "original": "hammoudi-original",
       };
 
       if (envSlug) {
@@ -78,46 +91,82 @@ function barberMultiClientPlugin() {
         }
       }
 
-      // Read active client data for HTML head injection
+      // Read and validate active client data for HTML head injection
       const clientFilePath = path.resolve(clientsDir, `${resolvedSlug}.json`);
       if (fs.existsSync(clientFilePath)) {
         try {
-          clientData = JSON.parse(fs.readFileSync(clientFilePath, "utf-8"));
-        } catch {
-          clientData = null;
+          const raw = JSON.parse(fs.readFileSync(clientFilePath, "utf-8"));
+          validatedClient = validateBarberConfig(raw);
+        } catch (err) {
+          console.error(`[Barber Master Template] Failed to validate client data from ${clientFilePath}:`, err);
+          validatedClient = null;
         }
       }
     },
 
     transformIndexHtml(html) {
-      if (!clientData) return html;
+      if (!validatedClient) return html;
 
-      const title = clientData.seo?.title || `${clientData.businessName} | Master Barber | Perth`;
-      const description =
-        clientData.seo?.description ||
-        clientData.businessDescription ||
-        `Premier barbershop and precision grooming at ${clientData.businessName}.`;
-      const favicon = clientData.branding?.favicon || "/favicon.svg";
+      const title = validatedClient.seo?.title || `${validatedClient.businessName} | Master Barber | Perth`;
+      const description = validatedClient.seo?.description || validatedClient.businessDescription || `Premier barbershop and precision grooming at ${validatedClient.businessName}.`;
+      const favicon = validatedClient.branding?.favicon || "/favicon.svg";
+      const canonicalUrl = validatedClient.seo?.canonicalUrl;
+      const ogTitle = validatedClient.seo?.ogTitle || title;
+      const ogDescription = validatedClient.seo?.ogDescription || description;
+      const ogImage = validatedClient.seo?.ogImage || validatedClient.branding?.heroImage;
+      const robots = validatedClient.seo?.robots || "index, follow";
 
       let transformed = html;
 
       // Replace <title>
-      transformed = transformed.replace(/<title>.*?<\/title>/i, `<title>${title}</title>`);
+      transformed = transformed.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
 
       // Replace favicon
       transformed = transformed.replace(
         /<link\s+rel="icon"[^>]*>/i,
-        `<link rel="icon" type="image/svg+xml" href="${favicon}" />`
+        `<link rel="icon" type="image/svg+xml" href="${escapeHtml(favicon)}" />`
       );
 
-      // Inject SEO & OpenGraph meta tags
-      const metaTags = `
-    <meta name="description" content="${description}" />
-    <meta property="og:title" content="${title}" />
-    <meta property="og:description" content="${description}" />
-    <meta property="og:type" content="website" />
-    <meta name="generator" content="Barber Master Template v2.0" />
-      `.trim();
+      // JSON-LD structured data for local business
+      const schemaOrgData = {
+        "@context": "https://schema.org",
+        "@type": "BarberShop",
+        "name": validatedClient.businessName,
+        "description": description,
+        "telephone": validatedClient.phone || undefined,
+        "email": validatedClient.email || undefined,
+        "url": canonicalUrl || undefined,
+        "address": validatedClient.address ? {
+          "@type": "PostalAddress",
+          "streetAddress": validatedClient.address.street || undefined,
+          "addressLocality": validatedClient.address.city || undefined,
+          "addressRegion": validatedClient.address.state || undefined,
+          "postalCode": validatedClient.address.postcode || undefined,
+          "addressCountry": validatedClient.address.country || "AU",
+        } : undefined,
+      };
+
+      // Remote font links if configured and valid
+      const fontTags = Array.isArray(validatedClient.branding?.fontSources)
+        ? validatedClient.branding.fontSources.map((fUrl) => `<link rel="stylesheet" href="${escapeHtml(fUrl)}" />`)
+        : [];
+
+      const metaTags = [
+        ...fontTags,
+        `<meta name="description" content="${escapeHtml(description)}" />`,
+        `<meta name="robots" content="${escapeHtml(robots)}" />`,
+        canonicalUrl ? `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />` : "",
+        `<meta property="og:title" content="${escapeHtml(ogTitle)}" />`,
+        `<meta property="og:description" content="${escapeHtml(ogDescription)}" />`,
+        `<meta property="og:type" content="website" />`,
+        ogImage ? `<meta property="og:image" content="${escapeHtml(ogImage)}" />` : "",
+        `<meta name="twitter:card" content="summary_large_image" />`,
+        `<meta name="twitter:title" content="${escapeHtml(ogTitle)}" />`,
+        `<meta name="twitter:description" content="${escapeHtml(ogDescription)}" />`,
+        ogImage ? `<meta name="twitter:image" content="${escapeHtml(ogImage)}" />` : "",
+        `<meta name="generator" content="Barber Master Template v2.0" />`,
+        `<script type="application/ld+json">${JSON.stringify(schemaOrgData)}</script>`,
+      ].filter(Boolean).join("\n    ");
 
       transformed = transformed.replace("</head>", `  ${metaTags}\n  </head>`);
       return transformed;
@@ -131,4 +180,21 @@ export default defineConfig({
     tailwindcss(),
     barberMultiClientPlugin(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/") || id.includes("node_modules/react-router-dom/")) {
+            return "vendor";
+          }
+          if (id.includes("node_modules/lucide-react/")) {
+            return "icons";
+          }
+          if (id.includes("node_modules/gsap/") || id.includes("node_modules/@studio-freight/lenis/")) {
+            return "animations";
+          }
+        },
+      },
+    },
+  },
 });

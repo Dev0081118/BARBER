@@ -1,3 +1,6 @@
+import ResponsiveImage from "../../../components/shared/ResponsiveImage.jsx";
+import { getSectionConfig, getSectionStyleProperties } from "../../../schemas/barberSchema.js";
+
 const defaultGallery = [
   {
     id: "01",
@@ -32,6 +35,23 @@ const defaultGallery = [
 ];
 
 export default function PhotoGallery({ barber }) {
+  const galleryConfig = getSectionConfig(barber, "gallery");
+
+  const businessFirstWord =
+    galleryConfig.content.businessFirstWord ||
+    barber?.businessName?.split(" ")[0] || "Hammoudi";
+
+  const eyebrow = galleryConfig.content.eyebrow || "The Gallery";
+  const mainTitle = galleryConfig.content.title || `A look inside\n${businessFirstWord}.`;
+  const titleParts = mainTitle.split("\n");
+  const titleL1 = titleParts[0];
+  const titleL2 = titleParts.slice(1).join("\n") || `${businessFirstWord}.`;
+  const subtitle = galleryConfig.content.description || "A glimpse into the atmosphere, craft and attention to detail that make every visit different.";
+
+  const instaTag = galleryConfig.content.instaTag || "Follow the journey";
+  const instaTitle = galleryConfig.content.instaTitle || `More from ${businessFirstWord}.`;
+  const instaCta = galleryConfig.content.instaCtaText || "Instagram →";
+
   const galleryItems =
     barber?.gallery && barber.gallery.length >= 6
       ? barber.gallery.map((item, idx) => ({
@@ -41,33 +61,44 @@ export default function PhotoGallery({ barber }) {
         }))
       : defaultGallery;
 
-  const businessFirstWord =
-    barber?.businessName?.split(" ")[0] || "Hammoudi";
-
   const instagramLink =
+    galleryConfig.content.instagramUrl ||
     barber?.socialLinks?.find((s) => s.platform?.toLowerCase() === "instagram")?.url ||
     "https://www.instagram.com/hammoudi_barber_shop/";
 
+  const galleryStyles = getSectionStyleProperties(galleryConfig.style, {
+    backgroundColor: "#ffffff",
+    textColor: "#000000",
+    headingColor: "#000000",
+    borderColor: "rgb(229, 229, 229)",
+  });
+
   return (
-    <section id="photo-gallery" className="bg-white px-6 py-32 text-black md:px-12 lg:px-20">
+    <section
+      id="photo-gallery"
+      style={galleryStyles}
+      className="bg-white px-6 py-32 text-black md:px-12 lg:px-20"
+    >
       {/* HEADER */}
       <div className="mx-auto mb-24 max-w-[1400px]">
         <p className="mb-6 text-xs uppercase tracking-[0.3em] text-neutral-500">
-          The Gallery
+          {eyebrow}
         </p>
 
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <h2 className="text-6xl font-light leading-[0.9] tracking-[-0.05em] md:text-8xl">
-            A look inside
+          <h2
+            style={{ color: galleryConfig.style?.headingColor }}
+            className="text-6xl font-light leading-[0.9] tracking-[-0.05em] md:text-8xl"
+          >
+            {titleL1}
             <br />
             <span className="text-neutral-400">
-              {businessFirstWord}.
+              {titleL2}
             </span>
           </h2>
 
           <p className="max-w-[350px] text-sm leading-6 text-neutral-500">
-            A glimpse into the atmosphere, craft and attention to detail
-            that make every visit different.
+            {subtitle}
           </p>
         </div>
       </div>
@@ -117,11 +148,11 @@ export default function PhotoGallery({ barber }) {
       <div className="mx-auto mt-24 flex max-w-[1400px] flex-col justify-between gap-8 border-t border-neutral-200 pt-10 md:flex-row md:items-center">
         <div>
           <p className="text-xs uppercase tracking-[0.25em] text-neutral-400">
-            Follow the journey
+            {instaTag}
           </p>
 
           <h3 className="mt-3 text-3xl font-light tracking-[-0.03em]">
-            More from {businessFirstWord}.
+            {instaTitle}
           </h3>
         </div>
 
@@ -129,6 +160,10 @@ export default function PhotoGallery({ barber }) {
           href={instagramLink}
           target="_blank"
           rel="noopener noreferrer"
+          style={{
+            backgroundColor: galleryConfig.style?.buttonBackground,
+            color: galleryConfig.style?.buttonTextColor,
+          }}
           className="
             group
             relative
@@ -169,7 +204,7 @@ export default function PhotoGallery({ barber }) {
               group-active:text-white
             "
           >
-            Instagram →
+            {instaCta}
           </span>
         </a>
       </div>
@@ -189,8 +224,8 @@ function GalleryImage({ item, className }) {
         ${className}
       `}
     >
-      <img
-        src={item.image}
+      <ResponsiveImage
+        image={item.responsiveImage || item.image}
         alt={item.title}
         className="
           h-full

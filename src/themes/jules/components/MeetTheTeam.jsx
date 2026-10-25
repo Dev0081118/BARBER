@@ -2,6 +2,8 @@ import teamImage1 from "../../../assets/Team/emp1.png";
 import teamImage2 from "../../../assets/Team/emp2.png";
 import teamImage4 from "../../../assets/Team/emp4.png";
 import teamImage5 from "../../../assets/Team/emp5.png";
+import ResponsiveImage from "../../../components/shared/ResponsiveImage.jsx";
+import { getSectionConfig, getSectionStyleProperties } from "../../../schemas/barberSchema.js";
 
 const teamAssetMap = {
   "emp1": teamImage1,
@@ -47,6 +49,15 @@ const defaultTeam = [
 ];
 
 export default function MeetTheTeam({ barber }) {
+  const teamConfig = getSectionConfig(barber, "team");
+
+  const eyebrow = teamConfig.content.eyebrow || "The People Behind The Chair";
+  const mainTitle = teamConfig.content.title || "Meet the\nteam.";
+  const titleParts = mainTitle.split("\n");
+  const titleL1 = titleParts[0];
+  const titleL2 = titleParts.slice(1).join("\n") || "team.";
+  const subtitle = teamConfig.content.description || "Experienced hands, sharp eyes and a passion for making every client leave looking their best.";
+
   const teamList =
     barber?.team && barber.team.length > 0
       ? barber.team.map((member, idx) => {
@@ -61,26 +72,39 @@ export default function MeetTheTeam({ barber }) {
 
   const countStr = `${String(teamList.length).padStart(2, "0")} / ${String(teamList.length).padStart(2, "0")}`;
 
+  const teamStyles = getSectionStyleProperties(teamConfig.style, {
+    backgroundColor: "#000000",
+    textColor: "#ffffff",
+    headingColor: "#ffffff",
+    accentColor: barber?.branding?.accentColor || "#c96b3c",
+    borderColor: "rgb(38, 38, 38)",
+  });
+
   return (
-    <section className="bg-black py-32 text-white">
+    <section
+      style={teamStyles}
+      className="bg-black py-32 text-white"
+    >
       {/* HEADER */}
       <div className="mx-auto mb-20 w-[90%] max-w-[1400px]">
         <p className="mb-6 text-xs uppercase tracking-[0.3em] text-neutral-500">
-          The People Behind The Chair
+          {eyebrow}
         </p>
 
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <h2 className="text-6xl font-light leading-[0.9] tracking-[-0.05em] md:text-8xl">
-            Meet the
+          <h2
+            style={{ color: teamConfig.style?.headingColor }}
+            className="text-6xl font-light leading-[0.9] tracking-[-0.05em] md:text-8xl"
+          >
+            {titleL1}
             <br />
             <span className="text-neutral-600">
-              team.
+              {titleL2}
             </span>
           </h2>
 
           <p className="max-w-[350px] text-sm leading-6 text-neutral-500">
-            Experienced hands, sharp eyes and a passion for making
-            every client leave looking their best.
+            {subtitle}
           </p>
         </div>
       </div>
@@ -101,9 +125,9 @@ export default function MeetTheTeam({ barber }) {
             >
               {/* IMAGE */}
               <div className="relative h-[520px] overflow-hidden bg-neutral-900">
-                <img
-                  src={member.image}
-                  alt={member.name}
+                <ResponsiveImage
+                  image={member.responsiveImage || member.image}
+                  alt={member.alt || member.name}
                   className="
                     h-full
                     w-full
@@ -139,30 +163,35 @@ export default function MeetTheTeam({ barber }) {
                   </p>
                 </div>
 
-                {/* Arrow */}
-                <div
-                  className="
-                    flex
-                    h-10
-                    w-10
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-neutral-700
-                    text-neutral-400
-                    transition-all
-                    duration-500
-                    group-hover:border-[#c96b3c]
-                    group-hover:bg-[#c96b3c]
-                    group-hover:text-white
-                    group-active:border-[#c96b3c]
-                    group-active:bg-[#c96b3c]
-                    group-active:text-white
-                  "
-                >
-                  →
-                </div>
+                {/* Arrow / Action */}
+                {(member.bookingUrl || barber?.bookingUrl) && (
+                  <a
+                    href={member.bookingUrl || barber?.bookingUrl}
+                    target={String(member.bookingUrl || barber?.bookingUrl).startsWith("http") ? "_blank" : undefined}
+                    rel="noreferrer"
+                    className="
+                      flex
+                      h-10
+                      w-10
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-neutral-700
+                      text-neutral-400
+                      transition-all
+                      duration-500
+                      group-hover:border-[#c96b3c]
+                      group-hover:bg-[#c96b3c]
+                      group-hover:text-white
+                      group-active:border-[#c96b3c]
+                      group-active:bg-[#c96b3c]
+                      group-active:text-white
+                    "
+                  >
+                    →
+                  </a>
+                )}
               </div>
             </div>
           ))}

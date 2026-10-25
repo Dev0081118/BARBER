@@ -11,6 +11,18 @@ import Reviews from "./components/Reviews.jsx";
 import PhotoGallery from "./components/PhotoGallery.jsx";
 import Footer from "./components/Footer.jsx";
 
+const DEFAULT_JULES_ORDER = [
+  "hero",
+  "story",
+  "splitContent",
+  "services",
+  "packages",
+  "team",
+  "reviews",
+  "gallery",
+  "footer",
+];
+
 export default function JulesTheme({ barber }) {
   const rootRef = useRef(null);
 
@@ -22,18 +34,41 @@ export default function JulesTheme({ barber }) {
 
   const sections = barber?.sections || {};
 
+  const sectionMap = {
+    hero: () => sections.hero !== false && <Hero key="hero" barber={barber} />,
+    story: () => sections.story !== false && <WhoareWe key="story" barber={barber} />,
+    splitContent: () => sections.splitContent !== false && <ScrollWindow key="splitContent" barber={barber} />,
+    services: () => sections.services !== false && <Services key="services" barber={barber} />,
+    packages: () => sections.packages !== false && <Packages key="packages" barber={barber} />,
+    team: () => sections.team !== false && <MeetTheTeam key="team" barber={barber} />,
+    reviews: () => sections.reviews !== false && <Reviews key="reviews" barber={barber} />,
+    gallery: () => sections.gallery !== false && <PhotoGallery key="gallery" barber={barber} />,
+    footer: () => sections.footer !== false && <Footer key="footer" barber={barber} />,
+  };
+
+  const renderedKeys = new Set();
+  const activeOrder = Array.isArray(barber?.sectionOrder) && barber.sectionOrder.length > 0
+    ? barber.sectionOrder
+    : DEFAULT_JULES_ORDER;
+
   return (
-    <div ref={rootRef} className="w-full overflow-x-hidden bg-black font-helvetica selection:bg-[#c96b3c] selection:text-white">
+    <div
+      ref={rootRef}
+      style={{
+        backgroundColor: barber?.branding?.backgroundColor || "#000000",
+        color: barber?.branding?.textColor || "#ffffff",
+        ...(barber?.branding?.headingFont ? { "--font-heading": barber.branding.headingFont } : {}),
+        ...(barber?.branding?.bodyFont ? { "--font-body": barber.branding.bodyFont, fontFamily: barber.branding.bodyFont } : {}),
+      }}
+      className="w-full overflow-x-hidden bg-black font-helvetica selection:bg-[#c96b3c] selection:text-white"
+    >
       <NavBar barber={barber} />
-      {sections.hero !== false && <Hero barber={barber} />}
-      {sections.story !== false && <WhoareWe barber={barber} />}
-      {sections.splitContent !== false && <ScrollWindow barber={barber} />}
-      {sections.services !== false && <Services barber={barber} />}
-      {sections.packages !== false && <Packages barber={barber} />}
-      {sections.team !== false && <MeetTheTeam barber={barber} />}
-      {sections.reviews !== false && <Reviews barber={barber} />}
-      {sections.gallery !== false && <PhotoGallery barber={barber} />}
-      {sections.footer !== false && <Footer barber={barber} />}
+      {activeOrder.map((sectionKey) => {
+        if (renderedKeys.has(sectionKey)) return null;
+        renderedKeys.add(sectionKey);
+        const renderSection = sectionMap[sectionKey];
+        return renderSection ? renderSection() : null;
+      })}
     </div>
   );
 }

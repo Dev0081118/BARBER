@@ -1,3 +1,5 @@
+import { getSectionConfig, getSectionStyleProperties } from "../../../schemas/barberSchema.js";
+
 const defaultReviews = [
   {
     name: "John Gallager",
@@ -32,30 +34,58 @@ const defaultReviews = [
 ];
 
 export default function Reviews({ barber }) {
+  const reviewsConfig = getSectionConfig(barber, "reviews");
+
+  const eyebrow = reviewsConfig.content.eyebrow || "Client Stories";
+  const mainTitle = reviewsConfig.content.title || "Words from\nour clients.";
+  const titleParts = mainTitle.split("\n");
+  const titleL1 = titleParts[0];
+  const titleL2 = titleParts.slice(1).join("\n") || "our clients.";
+
+  const googleTag = reviewsConfig.content.googleTag || "Had a good experience?";
+  const googleTitle = reviewsConfig.content.googleTitle || "Tell the world about it.";
+  const googleCta = reviewsConfig.content.googleCtaText || "Review us on Google →";
+
   const reviewsList =
     barber?.reviews && barber.reviews.length > 0 ? barber.reviews : defaultReviews;
   const ratingScore = barber?.ratingSummary?.score || "4.6";
   const totalReviews = barber?.ratingSummary?.totalReviews || "350+ reviews";
   const platform = barber?.ratingSummary?.platform || "Google";
   const googleReviewUrl =
+    reviewsConfig.content.googleReviewUrl ||
     barber?.mapUrl ||
     "https://www.google.com/search?q=Hammoudi+Barber+Shop+Perth";
 
+  const reviewsStyles = getSectionStyleProperties(reviewsConfig.style, {
+    backgroundColor: "#ffffff",
+    cardBackground: "#ffffff",
+    textColor: "#000000",
+    headingColor: "#000000",
+    accentColor: barber?.branding?.accentColor || "#c96b3c",
+    borderColor: "rgb(229, 229, 229)",
+  });
+
   return (
-    <section className="bg-white px-6 py-32 text-black md:px-12 lg:px-20">
+    <section
+      style={reviewsStyles}
+      className="bg-white px-6 py-32 text-black md:px-12 lg:px-20"
+    >
       {/* HEADER */}
       <div className="mx-auto max-w-[1400px]">
         <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
           <div>
             <p className="mb-6 text-xs font-medium uppercase tracking-[0.3em] text-neutral-500">
-              Client Stories
+              {eyebrow}
             </p>
 
-            <h2 className="text-6xl font-light leading-[0.9] tracking-[-0.05em] md:text-8xl">
-              Words from
+            <h2
+              style={{ color: reviewsConfig.style?.headingColor }}
+              className="text-6xl font-light leading-[0.9] tracking-[-0.05em] md:text-8xl"
+            >
+              {titleL1}
               <br />
               <span className="text-neutral-400">
-                our clients.
+                {titleL2}
               </span>
             </h2>
           </div>
@@ -67,7 +97,7 @@ export default function Reviews({ barber }) {
                 {ratingScore}
               </p>
 
-              <div className="mt-2 flex gap-1 text-[#c96b3c]">
+              <div className="mt-2 flex gap-1 text-[var(--section-accent,#c96b3c)]">
                 ★ ★ ★ ★ ★
               </div>
             </div>
@@ -93,6 +123,9 @@ export default function Reviews({ barber }) {
           {reviewsList.map((review, index) => (
             <article
               key={review.id || review.name + index}
+              style={{
+                backgroundColor: reviewsConfig.style?.cardBackground,
+              }}
               className={`
                 group
                 flex
@@ -116,7 +149,7 @@ export default function Reviews({ barber }) {
                   0{index + 1}
                 </span>
 
-                <span className="text-[#c96b3c]">
+                <span className="text-[var(--section-accent,#c96b3c)]">
                   ★★★★★
                 </span>
               </div>
@@ -152,11 +185,11 @@ export default function Reviews({ barber }) {
         <div className="flex flex-col items-start justify-between gap-8 border-t border-neutral-200 pt-10 md:flex-row md:items-center">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-neutral-400">
-              Had a good experience?
+              {googleTag}
             </p>
 
             <h3 className="mt-3 text-3xl font-light tracking-[-0.03em]">
-              Tell the world about it.
+              {googleTitle}
             </h3>
           </div>
 
@@ -165,6 +198,10 @@ export default function Reviews({ barber }) {
             href={googleReviewUrl}
             target="_blank"
             rel="noopener noreferrer"
+            style={{
+              backgroundColor: reviewsConfig.style?.buttonBackground,
+              color: reviewsConfig.style?.buttonTextColor,
+            }}
             className="
               group
               relative
@@ -205,7 +242,7 @@ export default function Reviews({ barber }) {
                 group-active:text-white
               "
             >
-              Review us on Google →
+              {googleCta}
             </span>
           </a>
         </div>

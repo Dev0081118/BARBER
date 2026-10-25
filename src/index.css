@@ -93,3 +93,46 @@
   --font-helvetica: "Helvetica Neue", sans-serif;
   --font-gt-super: "GT Super", serif;
 }
+
+:root {
+  --font-heading: inherit;
+  --font-body: inherit;
+}
+
+/* Dynamic typography override cascade */
+[style*="--font-heading"] {
+  --font-serif: var(--font-heading);
+  --font-mono: var(--font-heading);
+  --font-gt-super: var(--font-heading);
+}
+
+[style*="--font-body"] {
+  --font-sans: var(--font-body);
+  --font-helvetica: var(--font-body);
+}
+
+/* Dynamic hover tokens for buttons, cards, links */
+[style*="--section-btn-hover-bg"] .btn-dynamic-hover:hover,
+.btn-dynamic-hover[style*="--section-btn-hover-bg"]:hover {
+  background-color: var(--section-btn-hover-bg) !important;
+}
+
+[style*="--section-btn-hover-text"] .btn-dynamic-hover:hover,
+.btn-dynamic-hover[style*="--section-btn-hover-text"]:hover {
+  color: var(--section-btn-hover-text) !important;
+}
+
+[style*="--section-card-hover-bg"] .card-dynamic-hover:hover,
+.card-dynamic-hover[style*="--section-card-hover-bg"]:hover {
+  background-color: var(--section-card-hover-bg) !important;
+}
+
+[style*="--section-accent-hover"] .accent-dynamic-hover:hover,
+.accent-dynamic-hover[style*="--section-accent-hover"]:hover {
+  color: var(--section-accent-hover) !important;
+}
+
+[style*="--section-link-hover"] .link-dynamic-hover:hover,
+.link-dynamic-hover[style*="--section-link-hover"]:hover {
+  color: var(--section-link-hover) !important;
+}
